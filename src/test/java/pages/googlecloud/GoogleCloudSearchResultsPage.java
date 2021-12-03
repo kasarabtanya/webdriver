@@ -3,6 +3,8 @@ package pages.googlecloud;
 import org.openqa.selenium.By;
 import pages.BasicPage;
 
+import static utils.StringFormatterUtil.composeXpath;
+
 public class GoogleCloudSearchResultsPage extends BasicPage {
     private final String LINK_XPATH = "//b[text()='%s']/parent::a";
 

@@ -62,7 +62,7 @@ public class BasicPage {
         }
     }
 
-    public void waitForElementAndClick(String xpath){
+    public void waitForElementAndClick(String xpath) {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
         new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions
@@ -74,8 +74,7 @@ public class BasicPage {
         driver.findElement(By.xpath(String.format(xpath, field))).click();
     }
 
-    protected String composeXpath(String locator, String value){
-        return String.format(locator, value);
-    }
-
+//     protected String composeXpath(String locator, String value){
+//        return String.format(locator, value);
+//    }
 }

@@ -6,7 +6,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasicPage;
 
+
 import java.time.Duration;
+
+import static utils.StringFormatterUtil.composeXpath;
 
 public class GoogleCloudPricingCalculatorPage extends BasicPage {
 
