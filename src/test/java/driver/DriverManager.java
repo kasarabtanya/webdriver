@@ -3,6 +3,7 @@ package driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -26,15 +27,16 @@ public class DriverManager {
     }
 
     private static WebDriver getFFDriver() {
+        FirefoxDriver ffDdriver = new FirefoxDriver();
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         firefoxProfile.setPreference("browser.private.browsing.autostart", true);
-        return null;   // do add driver
+        return ffDdriver;
     }
 
     private static WebDriver getChromeDriver() {
         ChromeDriver chromeDriver = new ChromeDriver();
         ChromeOptions caps = new ChromeOptions();
- //       caps.addArguments("incognito");
+        caps.addArguments("incognito");
         caps.addArguments("start-maximized");
         return chromeDriver;
     }

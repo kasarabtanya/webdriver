@@ -1,8 +1,0 @@
-name: YAML Test suite
-theradCount: 2
-
-tests:
-  - name: Regression
-    classes:
-      - tests.pastebin.ICanWinTest
-      - tests.pastebin.ICanWinTest
