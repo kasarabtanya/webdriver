@@ -24,7 +24,6 @@ import tests.BasicTestngTests;
 
 import java.util.List;
 
-
 public class BringItOnTest extends BasicTestngTests {
     PastebinStartPage startPage = new PastebinStartPage();
     PastebinResultPage resultPage = new PastebinResultPage();
@@ -36,7 +35,7 @@ public class BringItOnTest extends BasicTestngTests {
     String expectedResult = "rgba(194, 12, 185, 1)";
     String highlightedElement = "//div[@class='highlighted-code']//span[contains(text(),'git reset')]";
 
-    @Test
+    @Test (description = "verify URL of a page with created paste")
     public void verifyPastePageTitle() {
         LOGGER.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + " is executing");
         startPage.getPage();
@@ -45,14 +44,14 @@ public class BringItOnTest extends BasicTestngTests {
         startPage.setSyntaxHighlightBash();
         startPage.setValueToTextFieldFoundById(title, startPage.getElementId("name"));
         startPage.createPaste();
-        Assert.assertTrue(resultPage.getHeaderValue().contains(title));
+        Assert.assertTrue(resultPage.getHeaderValue().contains(title),
+                String.format("Actual URL is '%s' instead of '%s'", resultPage.getHeaderValue(), title));
     }
 
-    @Test
-    public void verifySyntaxIsHighlighted() throws InterruptedException {
+    @Test (description = "verify that syntax of a paste is highlighted")
+    public void verifySyntaxIsHighlighted() {
         LOGGER.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + " is executing");
         startPage.getPage();
-        Thread.sleep(5000); // used to close ads popups
         startPage.setValueToTextFieldFoundById(code, startPage.getElementId("text"));
         startPage.set10MinutesExpiration();
         startPage.setSyntaxHighlightBash();
@@ -61,14 +60,13 @@ public class BringItOnTest extends BasicTestngTests {
         String actualResult = "";
         actualResult = resultPage.getElementColor(highlightedElement);
         LOGGER.debug(String.format("actual result is %s; expected result is %s", actualResult, expectedResult));
-        Assert.assertEquals(actualResult, expectedResult, String.format("actual result is %s; expected result is %s", actualResult, expectedResult));
+        Assert.assertEquals(actualResult, expectedResult, String.format("Actual result is %s; expected result is %s", actualResult, expectedResult));
     }
 
-    @Test
-    public void verifyCodeText() throws InterruptedException {
+    @Test (description = "verify text of code in a paste")
+    public void verifyCodeText() {
         LOGGER.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + " is executing");
         startPage.getPage();
-        Thread.sleep(5000); // used to close ads popups
         startPage.setValueToTextFieldFoundById(code, startPage.getElementId("text"));
         startPage.set10MinutesExpiration();
         startPage.setSyntaxHighlightBash();
@@ -76,7 +74,7 @@ public class BringItOnTest extends BasicTestngTests {
         startPage.createPaste();
         List<String> actualResult = resultPage.getCodeElements();
         for (String ar : actualResult) {
-            Assert.assertTrue(code.contains(ar));
+            Assert.assertTrue(code.contains(ar), String.format("Actual URL is '%s' instead of '%s'", actualResult, ar));
         }
     }
 

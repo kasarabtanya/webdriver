@@ -5,6 +5,8 @@
         <classes>
             <class name="tests.pastebin.ICanWinTest"></class>
             <class name="tests.pastebin.BringItOnTest"></class>
+            <class name="tests.googlecloud.HurtMePlentyTest"></class>
+            <class name="tests.googlecloud.HardCoreTest"></class>
         </classes>
     </test>
 </suite>

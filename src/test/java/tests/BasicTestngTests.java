@@ -3,9 +3,9 @@ package tests;
 import driver.Config;
 import driver.Driver;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 
 import org.apache.log4j.Logger;
+import org.testng.annotations.BeforeTest;
 import utils.L4JLogging;
 
 
@@ -14,13 +14,14 @@ public class BasicTestngTests {
 
     @BeforeTest
     public void initDriver() {
-        LOGGER.info("test execution started");
+        LOGGER.info("test suite execution started");
         Driver.setConfig(Config.CHROME);
     }
 
     @AfterTest
     public void closeDriver() {
-        LOGGER.info("test execution finished");
+        LOGGER.info("test suite execution finished");
         Driver.destroy();
     }
+
 }

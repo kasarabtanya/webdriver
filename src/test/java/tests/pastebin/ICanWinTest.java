@@ -18,8 +18,8 @@ public class ICanWinTest extends BasicTestngTests {
     String code = "Hello from WebDriver";
     String title = "helloweb";
 
-    @Test
-    public void iCanWinTest() {
+    @Test (description = "just create a new paste")
+    public void createPasteTest() {
         LOGGER.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + " is executing");
         startPage.getPage();
         startPage.setValueToTextFieldFoundById(code, startPage.getElementId("text"));

@@ -1,5 +1,6 @@
 package pages.pastebin;
 
+import driver.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -13,18 +14,17 @@ public class PastebinStartPage extends BasicPage {
     private static final String CREATE_BUTTON_XPATH = "//button[@type='submit']";
 
     public void getPage() {
-        driver.manage().window().maximize();
         driver.get(URL_PASTEBIN);
         LOGGER.trace("open URL: " + URL_PASTEBIN);
     }
 
-    public String getElementId(String field){
-        return String.format("postform-%s",field);
+    public String getElementId(String field) {
+        return String.format("postform-%s", field);
     }
 
     public void set10MinutesExpiration() {
         LOGGER.info("Selecting value to dropdown Paste Expiration");
-        Actions perform = new Actions(driver);
+        Actions perform = new Actions(driver);  //  Select throws error in this field on Chrome; to be refactored
         WebElement element = driver.findElement(By.xpath(EXPIRATION_ARROW_XPATH));
         element.click();
         perform.moveToElement(element)
@@ -37,7 +37,7 @@ public class PastebinStartPage extends BasicPage {
 
     public void setSyntaxHighlightBash() {
         LOGGER.info("Selecting value to dropdown Syntax Highlight");
-        Actions perform = new Actions(driver);
+        Actions perform = new Actions(driver);              // Select throws error in this field on Chrome; to be refactored
         WebElement element = driver.findElement(By.xpath(HIGHLIGHTING_ARROW_XPATH));
         element.click();
         perform.moveToElement(element)

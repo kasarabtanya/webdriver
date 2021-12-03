@@ -16,7 +16,7 @@ public class GoogleCloudStartPage extends BasicPage {
         LOGGER.trace("open URL: " + URL_GOOGLE_CLOUD);
     }
 
-    public void fillInSearchField(String value)  {
+    public void fillInSearchField(String value) {
         WebElement searchField = driver.findElement(By.xpath(SEARCH_BUTTON_XPATH));
         searchField.click();
         searchField.sendKeys(value);
