@@ -73,8 +73,4 @@ public class BasicPage {
     protected void openDropdown(String xpath, String field) {
         driver.findElement(By.xpath(String.format(xpath, field))).click();
     }
-
-//     protected String composeXpath(String locator, String value){
-//        return String.format(locator, value);
-//    }
 }
