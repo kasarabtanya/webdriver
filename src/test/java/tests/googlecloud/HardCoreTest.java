@@ -27,6 +27,8 @@
 
 package tests.googlecloud;
 
+import objects.googlecloud.Calculator;
+import objects.googlecloud.Search;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.googlecloud.GoogleCloudCalculatorResultsPage;
@@ -35,6 +37,10 @@ import pages.googlecloud.GoogleCloudSearchResultsPage;
 import pages.googlecloud.GoogleCloudStartPage;
 import pages.yopmail.YopmailPage;
 import tests.BasicTestngTests;
+import utils.parsers.JacksonParser;
+
+import java.io.File;
+import java.io.IOException;
 
 public class HardCoreTest extends BasicTestngTests {
 
@@ -44,54 +50,44 @@ public class HardCoreTest extends BasicTestngTests {
     GoogleCloudCalculatorResultsPage calculatorResultsPage = new GoogleCloudCalculatorResultsPage();
     YopmailPage yopmailPage = new YopmailPage();
 
-    String searchInput = "Google Cloud Platform Pricing Calculator";
-    String tab = "Compute Engine";
-    String instancesNumber = "4";
-    String osField = "Operating System";
-    String osValue = "Free: Debian, CentOS, CoreOS, Ubuntu or BYOL (Bring Your Own License)";
-    String machineClassField = "VM";
-    String machineClassValue = "regular";
-    String seriesField = "Series";
-    String seriesValue = "N1";
-    String machineTypeField = "Instance type";
-    String machineTypeValue = "n1-standard-8";
-    String gpuTypeField = "GPU type";
-    String gpuTypeValue = "NVIDIA Tesla P4";
-    String gpuNumberField = "Number of GPU";
-    int gpuNumberValue = 1;
-    String ssdField = "SSD";
-    String ssdValue = "2x375";
-    String datacenterField = "Datacenter";
-    String datacenterValue = "Frankfurt";
-    String estimate = "Add to Estimate";
-    String emailButtonValue = "Email Estimate";
+    String root = "src/test/resources/googlecloud/googlecloud.json";
+    File file = new File(root);
+    Search search = new Search();
+    Calculator calc;
 
-    @Test
+    {
+        try {
+            calc = JacksonParser.getCalculator(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test(description = "Verify email price")
     public void verifyEmailPriceTest() {
         LOGGER.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + " is executing");
         yopmailPage.getPage();
         yopmailPage.getRandomEmail();
-        String emailValue = "";
-        emailValue = yopmailPage.copyEmail();
+        String emailValue = yopmailPage.copyEmail();
         calculatorPage.openNewTab();
         calculatorPage.switchToNewTab(2);
         startPage.getPage();
-        startPage.fillInSearchField(searchInput);
-        searchResultsPage.openLink(searchInput);
+        startPage.fillInSearchField(search.getSearchInput());
+        searchResultsPage.openLink(search.getSearchInput());
         calculatorPage.switchToMyFrame();
-        calculatorPage.setTab(tab);
-        calculatorPage.setInstancesNumber(instancesNumber);
-        calculatorPage.setDropdownValue(osField, osValue);
-        calculatorPage.setMachineClassValue(machineClassField, machineClassValue);
-        calculatorPage.setDropdownValue(seriesField, seriesValue);
-        calculatorPage.setDropdownValue(machineTypeField, machineTypeValue);
+        calculatorPage.setTab(calc.getTab());
+        calculatorPage.setInstancesNumber(calc.getInstancesNumber());
+        calculatorPage.setDropdownValue(calc.getOsField(), calc.getOsValue());
+        calculatorPage.setMachineClassValue(calc.getMachineClassField(), calc.getMachineClassValue());
+        calculatorPage.setDropdownValue(calc.getSeriesField(), calc.getSeriesValue());
+        calculatorPage.setDropdownValue(calc.getMachineTypeField(), calc.getMachineTypeValue());
         calculatorPage.checkGPUCheckbox();
-        calculatorPage.setGpuTypeValue(gpuTypeField, gpuTypeValue);
-        calculatorPage.setGpuNumberValue(gpuNumberField, gpuNumberValue);
-        calculatorPage.setDropdownValue(ssdField, ssdValue);
-        calculatorPage.setRegionValue(datacenterField, datacenterValue);
-        calculatorPage.pressButton(estimate);
-        calculatorPage.pressButton(emailButtonValue);
+        calculatorPage.setGpuTypeValue(calc.getGpuTypeField(), calc.getGpuTypeValue());
+        calculatorPage.setGpuNumberValue(calc.getGpuNumberField(), calc.getGpuNumberValue());
+        calculatorPage.setDropdownValue(calc.getSsdField(), calc.getSsdValue());
+        calculatorPage.setRegionValue(calc.getDatacenterField(), calc.getDatacenterValue());
+        calculatorPage.pressButton(calc.getEstimate());
+        calculatorPage.pressButton(calc.getEmailButtonValue());
         calculatorResultsPage.sendToEmail(emailValue);
         String expectedResult = "";
         expectedResult = calculatorResultsPage.getPriceResult();

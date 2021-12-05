@@ -9,22 +9,36 @@
 
 package tests.pastebin;
 
+import objects.pastebin.Paste;
 import org.testng.annotations.Test;
 import pages.pastebin.PastebinStartPage;
 import tests.BasicTestngTests;
+import utils.parsers.JacksonParser;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ICanWinTest extends BasicTestngTests {
     PastebinStartPage startPage = new PastebinStartPage();
-    String code = "Hello from WebDriver";
-    String title = "helloweb";
+    String root = "src/test/resources/pastes/paste1.json";
+    File file = new File(root);
+    Paste paste;
 
-    @Test (description = "just create a new paste")
+    {
+        try {
+            paste = JacksonParser.getPaste(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test(description = "just create a new paste")
     public void createPasteTest() {
         LOGGER.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + " is executing");
         startPage.getPage();
-        startPage.setValueToTextFieldFoundById(code, startPage.getElementId("text"));
+        startPage.setValueToTextFieldFoundById(paste.getCode(), startPage.getElementId("text"));
         startPage.set10MinutesExpiration();
-        startPage.setValueToTextFieldFoundById(title, startPage.getElementId("name"));
+        startPage.setValueToTextFieldFoundById(paste.getTitle(), startPage.getElementId("name"));
         startPage.createPaste();
     }
 }

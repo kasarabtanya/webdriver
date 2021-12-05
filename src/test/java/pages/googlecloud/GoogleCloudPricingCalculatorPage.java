@@ -102,4 +102,5 @@ public class GoogleCloudPricingCalculatorPage extends BasicPage {
         LOGGER.info("Clicking element with xpath =" + composeXpath(BUTTON_XPATH, value));
         waitForElementAndClick(composeXpath(BUTTON_XPATH, value));
     }
+
 }
