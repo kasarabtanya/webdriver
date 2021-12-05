@@ -1,0 +1,13 @@
+{
+  "instancesNumber": "4",
+  "osValue": "Free: Debian, CentOS, CoreOS, Ubuntu or BYOL (Bring Your Own License)",
+  "machineClassValue": "regular",
+  "seriesValue": "N1",
+  "machineTypeValue": "n1-standard-8",
+  "gpuTypeValue": "NVIDIA Tesla P4",
+  "gpuNumberValue": 1,
+  "ssdValue": "2x375",
+  "datacenterValue": "Frankfurt",
+  "committedUsageValue": "1 Year",
+  "expectedCostValue": "2,617.31"
+}
