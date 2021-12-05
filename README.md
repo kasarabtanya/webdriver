@@ -14,4 +14,4 @@ Methods of googlecloud package are reusable for a large number of web elements.
 
 To do list:
 - refactor methods of pastebin (add Select instead of Actions)
-- verify flaky locator of sommitedUsageValue element
+- verify flaky locator of commitedUsageValue element
