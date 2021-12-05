@@ -9,7 +9,7 @@ Project contains E2E tests of pastebin.com site & E2E tests Google Cloud Pricing
 
 Page Object pattern without Page Factory was selected for a project as significant number of locators used on Google Cloud Pricing Calculator page are dynamic.
 
-BasicPaje.java & BasicTestngTests.java classes are introduced for reused methods/ attributes.
+BasicPage.java & BasicTestngTests.java classes are introduced for reused methods/ attributes.
 Methods of googlecloud package are reusable for a large number of web elements.
 
 To do list:
